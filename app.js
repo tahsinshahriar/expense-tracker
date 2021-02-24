@@ -12,11 +12,9 @@ const dummyTrans = [
     {id: 2, text: "T-Shirt", amount: -20},
     {id: 3, text: "Sunglass", amount: -50},
     {id: 4, text: "Camera", amount: -350},
-    {id: 5, text: "Freelancing", amount: 150},
-    {id: 4, text: "Playstation 5", amount: -550}
 ];
 
-const transactions = dummyTrans;
+let transactions = dummyTrans;
 
 //Add transaction from user
 function addTransaction(e){
@@ -43,6 +41,13 @@ function randNum(){
     return Math.floor(Math.random()*1000000000);
 }
 
+//removing transaction from history
+function rmvtrans(id){
+    // console.log(id);
+    transactions = transactions.filter(transaction => transaction.id !== id);
+    init();
+}
+
 //Add transactions to DOM
 function addToDom(transaction){
     //get sign value
@@ -52,7 +57,7 @@ function addToDom(transaction){
     //add a class to the list
     item.classList.add(transaction.amount < 0 ? 'minus' : 'plus');
     //generate html
-    item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span><button class="delete-btn">x</button>`;
+    item.innerHTML = `${transaction.text} <span>${sign}${Math.abs(transaction.amount)}</span><button class="delete-btn" onclick="rmvtrans(${transaction.id})">x</button>`;
     list.appendChild(item);
 }
 
