@@ -18,6 +18,31 @@ const dummyTrans = [
 
 const transactions = dummyTrans;
 
+//Add transaction from user
+function addTransaction(e){
+    e.preventDefault();
+    if (text.value.trim() === '' || amount.value.trim() === ''){
+        alert("Please add text and amount");
+    }
+    else {
+       const transaction = {
+           id: randNum(),
+           text: text.value,
+           amount: +amount.value
+       } 
+       transactions.push(transaction);
+       addToDom(transaction);
+       updateBalance();
+       text.value = '';
+       amount.value = '';
+    }
+}
+
+//generate random number
+function randNum(){
+    return Math.floor(Math.random()*1000000000);
+}
+
 //Add transactions to DOM
 function addToDom(transaction){
     //get sign value
@@ -55,6 +80,8 @@ function init(){
 }
 
 init();
+
+form.addEventListener('submit',addTransaction);
 
 
 
